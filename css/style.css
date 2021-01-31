@@ -22,7 +22,7 @@ header{
 main{
     grid-area: main;
     display: grid;
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: minmax(70px,20%) 4fr;
     grid-template-areas: "newBook"
                         "cardContainer";
 }
@@ -112,3 +112,24 @@ footer{
     background-color: #a00;
 }
 
+form{
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #000a;
+    display: grid;
+    place-items: center;
+    visibility: hidden;
+    
+}
+fieldset{
+    display: grid;
+    gap: 10px;
+    background-color: #333;
+    padding: 15px;
+    color: white;
+    font-weight: bolder;
+    border: 2px dashed white;
+    box-shadow: 5px 5px 4px black;
+}

@@ -13,6 +13,28 @@
 </head>
 
 <body>
+
+  <form>
+    <fieldset>
+      <legend>New Book:</legend>
+      <label for="formTitle">Book Title:</label><br>
+      <input type="text" id="formTitle" name="formTitle}"><br>
+      <label for="formAuthor">Book Author:</label><br>
+      <input type="text" id="formAuthor" name="formAuthor">
+      <label for="formPages">Pages:</label><br>
+      <input type="number" id="formPages" name="formPages" min="1" max="2000">
+      <span>
+        <input type="radio" id="formRead" name="formReadRadio" value="read">
+        <label for="formRead">Read</label><br>
+      </span>
+      <span>
+        <input type="radio" id="formNotRead" name="formReadRadio" value="notRead">
+        <label for="formNotRead">Not read</label>
+      </span>
+      <br>
+      <input type="submit" value="AddBook">
+    </fieldset>
+  </form> 
   
   <div id="container">
     <header class="center-items">
