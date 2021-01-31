@@ -3,6 +3,7 @@ const formDisplay = document.querySelector("form");
 const newBookButton = document.querySelector("#newBook");
 const cardContainer = document.querySelector("#cardContainer")
 let readButtons = document.querySelectorAll(".readButton");
+let deleteButtons = document.querySelectorAll(".deleteButton");
 //creating myLibrary array to store all books
 let myLibrary = [];
 
@@ -23,11 +24,20 @@ Book.prototype.info = function(){
 //object for storing functions regarding array myLibrary Manipulation
 const libraryManipulation = {
     deleteBook: (index) =>{ //delete a book through index
-        myLibrary.splice(index,0);
+        console.table(myLibrary);
+        console.log("Deleting book at index >>" + index);
+        myLibrary.splice(index,1);
     },
     addBook: (bookObject) => {
         myLibrary.push(bookObject);
         bookObject.info();
+    },
+    changeRead: (index) =>{
+        if(myLibrary[index].read){
+            myLibrary[index].read = false;
+        }else{
+            myLibrary[index].read = true;
+        }
     },
     createDefaultBook: () =>{
         libraryManipulation.addBook(new Book("The Underdog"
@@ -105,10 +115,23 @@ const domManipulation = {
     },
     updateEventListeners: () =>{
         readButtons = document.querySelectorAll(".readButton");
+        deleteButtons = document.querySelectorAll(".deleteButton");
 
 
         readButtons.forEach((button) =>{
-            button.addEventListener("click", ()=>{console.log("works")})
+            button.addEventListener("click", (e)=>{
+                libraryManipulation.changeRead(e.target.parentNode.parentNode.id);
+                domManipulation.updateCardContainer();
+            })
+        })
+
+        deleteButtons.forEach((button)=>{
+            button.addEventListener("click", (e)=>{
+                //id is on card div, parent of parent of button
+                libraryManipulation.deleteBook(e.target.parentNode.parentNode.id);
+                console.table(myLibrary);
+                domManipulation.updateCardContainer();
+            })
         })
     }
 }
