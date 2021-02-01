@@ -133,3 +133,8 @@ fieldset{
     border: 2px dashed white;
     box-shadow: 5px 5px 4px black;
 }
+
+input:invalid{
+    border: 2px solid red;
+}
+

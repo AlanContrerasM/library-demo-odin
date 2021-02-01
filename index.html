@@ -14,21 +14,21 @@
 
 <body>
 
-  <form>
+  <form autocomplete="off">
     <fieldset>
       <legend>New Book:</legend>
       <label for="formTitle">Book Title:</label><br>
-      <input type="text" id="formTitle" name="formTitle}"><br>
+      <input type="text" id="formTitle" name="formTitle" required minlength="2" maxlength="20"><br>
       <label for="formAuthor">Book Author:</label><br>
-      <input type="text" id="formAuthor" name="formAuthor">
+      <input type="text" id="formAuthor" name="formAuthor" required required minlength="2" maxlength="20">
       <label for="formPages">Pages:</label><br>
-      <input type="number" id="formPages" name="formPages" min="1" max="2000">
+      <input type="number" id="formPages" name="formPages" min="1" max="2000" required>
       <span>
-        <input type="radio" id="formRead" name="formReadRadio" value="read">
+        <input type="radio" id="formRead" name="formReadRadio" value="read" required>
         <label for="formRead">Read</label><br>
       </span>
       <span>
-        <input type="radio" id="formNotRead" name="formReadRadio" value="notRead">
+        <input type="radio" id="formNotRead" name="formReadRadio" value="notRead" required>
         <label for="formNotRead">Not read</label>
       </span>
       <br>
@@ -43,50 +43,6 @@
     <main>
       <div id="newBook" class="center-items">Add Book</div>
       <div id="cardContainer" class="center-items">
-        <div class="card">
-          <h3 class="title">Title</h3>
-          <p class="author">Rick</p>
-          <p class="pages">295 pages</p>
-          <div class="cardButtons">
-            <diV class=" cardButton readButton">Already read</diV>
-            <div class="cardButton deleteButton">Delete</div>
-          </div>
-        </div>
-        <div class="card">
-          <h3 class="title">Title</h3>
-          <p class="author">Rick</p>
-          <p class="pages">295 pages</p>
-          <diV class="read">Already read</diV>
-          <div class="delete">Delete</div>
-        </div>
-        <div class="card">
-          <h3 class="title">Title</h3>
-          <p class="author">Rick</p>
-          <p class="pages">295 pages</p>
-          <diV class="read">Already read</diV>
-          <div class="delete">Delete</div>
-        </div>
-        <div class="card">
-          <h3 class="title">Title</h3>
-          <p class="author">Rick</p>
-          <p class="pages">295 pages</p>
-          <diV class="read">Already read</diV>
-          <div class="delete">Delete</div>
-        </div>
-        <div class="card">
-          <h3 class="title">Title</h3>
-          <p class="author">Rick</p>
-          <p class="pages">295 pages</p>
-          <diV class="read">Already read</diV>
-          <div class="delete">Delete</div>
-        </div>
-        <div class="card">
-          <h3 class="title">Title</h3>
-          <p class="author">Rick</p>
-          <p class="pages">295 pages</p>
-          <diV class="read">Already read</diV>
-          <div class="delete">Delete</div>
-        </div>
       </div>
     </main>
     <footer class="center-items">

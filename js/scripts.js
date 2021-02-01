@@ -4,8 +4,11 @@ const newBookButton = document.querySelector("#newBook");
 const cardContainer = document.querySelector("#cardContainer")
 let readButtons = document.querySelectorAll(".readButton");
 let deleteButtons = document.querySelectorAll(".deleteButton");
+let submitButton = document.querySelector('input[type="submit"]')
 //creating myLibrary array to store all books
 let myLibrary = [];
+//setting up localStorage
+const localStorage = window.localStorage;
 
 
 //Books constructor
@@ -27,10 +30,12 @@ const libraryManipulation = {
         console.table(myLibrary);
         console.log("Deleting book at index >>" + index);
         myLibrary.splice(index,1);
+        libraryManipulation.populateStorage();
     },
     addBook: (bookObject) => {
         myLibrary.push(bookObject);
         bookObject.info();
+        libraryManipulation.populateStorage();
     },
     changeRead: (index) =>{
         if(myLibrary[index].read){
@@ -38,11 +43,34 @@ const libraryManipulation = {
         }else{
             myLibrary[index].read = true;
         }
+        libraryManipulation.populateStorage();
+    },
+    populateStorage: () =>{
+        let newString = "";
+        
+        myLibrary.forEach((book)=>{
+            Object.values(book).forEach(val =>{
+                newString += val + "---";
+            })
+            newString += ":;"
+        })
+        newString = newString.slice(0,-2);
+        localStorage.setItem("myLibrary",newString)
+    },
+    populateMyLibrary: ()=>{
+        let arrayOfBooks = localStorage.getItem("myLibrary").split(":;");
+
+        myLibrary = [];
+        
+        arrayOfBooks.forEach(book=>{
+            let arr=book.split("---");
+            myLibrary.push(new Book(arr[0], arr[1], arr[2], arr[3]=== "true"? true: false));
+        })
     },
     createDefaultBook: () =>{
         libraryManipulation.addBook(new Book("The Underdog"
                                         , "Alan Contreras"
-                                        , 296
+                                        , 42
                                         , true));
     },
     createCard: (book,i) =>{
@@ -137,27 +165,55 @@ const domManipulation = {
 }
 
 
+
 //Event listeners for addBook form
 newBookButton.addEventListener("click", domManipulation.displayForm)
+
+//just displaying message if form is not filled properly
+submitButton.addEventListener("click", ()=>{
+    if(!formDisplay.checkValidity()){
+        submitButton.value="Something is missing";
+    }
+})
 
 formDisplay.addEventListener("submit", e=>{
     //first we prevent the default submit
     e.preventDefault();
     domManipulation.hideForm();
-    domManipulation.clearCardContainer();
+
+    let title = document.querySelector("#formTitle");
+    let author = document.querySelector("#formAuthor");
+    let pages = document.querySelector("#formPages");
+    let read = document.querySelector("#formRead");
+
+    libraryManipulation.addBook(
+        new Book(title.value, author.value, pages.value,
+            read.checked? true: false)
+    )
+
+    domManipulation.updateCardContainer();
+
+
     
 });
 
 
 
+if(localStorage.getItem("myLibrary") == null){
+    // creating first Book
+    libraryManipulation.createDefaultBook();
+    libraryManipulation.createDefaultBook();
+
+    domManipulation.updateCardContainer();
+}else if(localStorage.getItem("myLibrary") == ""){
+    //do nothing
+}else{
+    libraryManipulation.populateMyLibrary();
+    domManipulation.updateCardContainer();
+}
 
 
 
-// creating first Book
-libraryManipulation.createDefaultBook();
-libraryManipulation.createDefaultBook();
-
-domManipulation.updateCardContainer();
 
 //card 
 /* <div class="card">
